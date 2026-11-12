@@ -1,0 +1,77 @@
+
+import datetime
+
+expenses = []
+
+def add_expense():
+    amount = float(input("Enter expense amount: "))
+    category = input("Enter category (Food, Travel, Shopping): ")
+    description = input("Enter description: ")
+
+    expense = {
+        "amount": amount,
+        "category": category,
+        "description": description,
+        "date": str(datetime.date.today())
+    }
+
+    expenses.append(expense)
+    print("Expense added successfully!\n")
+
+
+def view_expenses():
+    print("\n--- All Expenses ---")
+
+    if not expenses:
+        print("No expenses found.")
+        return
+
+    for e in expenses:
+        print(e)
+
+
+def total_expenses():
+    total = sum(e["amount"] for e in expenses)
+    print("Total Expenses: Rs.", total)
+
+
+def category_summary():
+    summary = {}
+
+    for e in expenses:
+        category = e["category"]
+        summary[category] = summary.get(category, 0) + e["amount"]
+
+    print("\n--- Category Summary ---")
+    for category, amount in summary.items():
+        print(category, ": Rs.", amount)
+
+
+while True:
+    print("\n===== SMART EXPENSE TRACKER =====")
+    print("1. Add Expense")
+    print("2. View Expenses")
+    print("3. Total Expenses")
+    print("4. Category Summary")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_expense()
+
+    elif choice == "2":
+        view_expenses()
+
+    elif choice == "3":
+        total_expenses()
+
+    elif choice == "4":
+        category_summary()
+
+    elif choice == "5":
+        print("Thank you for using Smart Expense Tracker!")
+        break
+
+    else:
+        print("Invalid choice. Try again.")
